@@ -136,3 +136,4 @@ C:\Users\omary\OneDrive\Escritorio\LearningDEV\BlogApp\API\CodePulse.API\CodePul
 C:\Users\omary\OneDrive\Escritorio\LearningDEV\BlogApp\API\CodePulse.API\CodePulse.API\obj\Debug\net8.0\CodePulse.API.pdb
 C:\Users\omary\OneDrive\Escritorio\LearningDEV\BlogApp\API\CodePulse.API\CodePulse.API\obj\Debug\net8.0\CodePulse.API.genruntimeconfig.cache
 C:\Users\omary\OneDrive\Escritorio\LearningDEV\BlogApp\API\CodePulse.API\CodePulse.API\obj\Debug\net8.0\ref\CodePulse.API.dll
+C:\Users\omary\OneDrive\Escritorio\LearningDEV\BlogApp\API\CodePulse.API\CodePulse.API\obj\Debug\net8.0\CodePulse.API.sourcelink.json

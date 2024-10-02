@@ -62,14 +62,14 @@
                     </label>
                 </div>
     
-    <!--             <div class="mt-3">
+                <div class="mt-3">
                     <label for="author" class="form-label">Categories</label>
                     <ng-container *ngIf="categories$ |async as myCategories">
-                        <select class="form-control" [(ngModel)]="model.categories" name="categories" id="categories" multiple>
+                        <select class="form-control" [(ngModel)]="selectedCategories" name="categories" id="categories" multiple>
                             <option *ngFor="let category of myCategories" [value]="category.id">{{category.name}}</option>
                         </select>
                     </ng-container>
-                </div> -->
+                </div>
     
                 <div class="mt-3">
                     <button type="submit" class="btn btn-primary">Save</button>

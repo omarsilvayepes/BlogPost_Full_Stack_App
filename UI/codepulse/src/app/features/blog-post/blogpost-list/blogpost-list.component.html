@@ -4,7 +4,8 @@
         <a [routerLink]="['/admin/blogpost/add']" class="btn btn-primary">Add BlogPost</a>
     </div>
 
-    <ng-container *ngIf="blogPost$ | async as blogPosts">
+    <ng-container *ngIf="blogPost$ | async as blogPost">
+        <app-delete-blogpost #deleteBlogPostModal  [blogPost]="blogPost"></app-delete-blogpost>
         <table class="table table-bordered mt-3"> 
             <thead>
                 <tr>
@@ -13,10 +14,11 @@
                     <th>Is Visible</th>
                     <th>Categories</th>
                     <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let blogPost of blogPosts ">
+                <tr *ngFor="let blogPost of blogPost ">
                     <td>{{blogPost.title}}</td>
                     <td>{{blogPost.shortDescription}}</td>
                     <td>{{blogPost.isVisible}}</td>
@@ -27,6 +29,9 @@
                     </td>
                     <td>
                         <a class="btn btn-primary" [routerLink]="['/admin/blogposts',blogPost.id]">Edit</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger" (click)="deleteBlogPostModal.openModal(blogPost.id)" >Delete</a>
                     </td>
                 </tr>
             </tbody>

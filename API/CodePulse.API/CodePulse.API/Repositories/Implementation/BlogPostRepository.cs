@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure.Core;
 using CodePulse.API.Data;
 using CodePulse.API.Models.Domain;
 using CodePulse.API.Models.DTO;
@@ -11,16 +12,16 @@ namespace CodePulse.API.Repositories.Implementation
     {
         private readonly ApplicationDbContext DbContext;
         private readonly IMapper Mapper;
-        private readonly ICategoryRepository CategoryRepository;
+       // private readonly ICategoryRepository CategoryRepository;
 
         public BlogPostRepository(ApplicationDbContext dbContext,
-            IMapper mapper,
-            ICategoryRepository categoryRepository
+            IMapper mapper
+            //ICategoryRepository categoryRepository
             )
         {
             DbContext = dbContext;
             Mapper = mapper;
-            CategoryRepository = categoryRepository;
+            //CategoryRepository = categoryRepository;
         }
 
 
@@ -30,6 +31,21 @@ namespace CodePulse.API.Repositories.Implementation
             await DbContext.BlogPosts.AddAsync(blogPost);
             await DbContext.SaveChangesAsync();
             return blogPost;
+        }
+
+        public async Task<BlogPostDto?> DeleteByIdAsync(Guid id)
+        {
+            var blogPost = await DbContext.BlogPosts
+                  .FirstOrDefaultAsync(b => b.Id == id);
+
+            if(blogPost is not null)
+            {
+                DbContext.BlogPosts.Remove(blogPost);
+                await DbContext.SaveChangesAsync();
+                return Mapper.Map<BlogPostDto>(blogPost);
+            }
+
+            return null;
         }
 
 
@@ -72,5 +88,52 @@ namespace CodePulse.API.Repositories.Implementation
             var blogPostDto = Mapper.Map<BlogPostDto>(blogPost);
             return blogPostDto;
         }
+
+        public async Task<BlogPost?> UpdateBlogPostAsync(Guid id, BlogPost blogPost)
+        {
+            var existingBlog = await DbContext.BlogPosts.Include(c => c.Categories)
+                .FirstOrDefaultAsync(b => b.Id == id);
+
+            if (existingBlog is not null)
+            {
+
+                //Update  BlogPost
+                DbContext.Entry(existingBlog).CurrentValues
+                    .SetValues(blogPost);
+
+                //Update Categories
+
+                existingBlog.Categories = blogPost.Categories.ToList();
+
+                await DbContext.SaveChangesAsync();
+
+                return blogPost;
+            }
+            return null;
+        }
+
+        //public async Task<BlogPostDto?> UpdateAsync(Guid id,BlogPostDto blogPostDto)
+        //{
+        //    var existingBlog = await DbContext.BlogPosts.Include(c=>c.Categories)
+        //        //.AsNoTracking()
+        //        .FirstOrDefaultAsync(b => b.Id == id);
+        //    if (existingBlog is not null)
+        //    {
+
+        //        //Update  BlogPost
+        //        DbContext.Entry(existingBlog).CurrentValues
+        //            .SetValues(Mapper.Map<BlogPost>(blogPostDto));
+
+        //        //Update Categories
+
+        //        existingBlog.Categories = Mapper.Map<IEnumerable<Category>>(blogPostDto.Categories).ToList();
+
+        //        //DbContext.BlogPosts.Update(existingBlog);
+        //        await DbContext.SaveChangesAsync();
+
+        //        return blogPostDto;
+        //    }
+        //    return null;
+        //}
     }
 }
