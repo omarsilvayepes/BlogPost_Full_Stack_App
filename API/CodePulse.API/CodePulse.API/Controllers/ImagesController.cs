@@ -20,6 +20,13 @@ namespace CodePulse.API.Controllers
             this.mapper = mapper;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetImages()
+        {
+            var images=await imageRepository.GetImages();
+            return Ok(mapper.Map<IEnumerable<BlogImageDTO>>(images));
+        }
+
         [HttpPost]
         public async Task <IActionResult> UploadImage([FromForm] IFormFile file,
             [FromForm] string fileName,

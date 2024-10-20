@@ -4,6 +4,7 @@ using CodePulse.API.Repositories.Implementation;
 using CodePulse.API.Repositories.Interface;
 using CodePulse.API.Utils;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,6 +57,14 @@ app.UseCors(options =>
 });
 
 app.UseAuthorization();
+
+//serve static images from API
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider=new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(),"Images")),
+    RequestPath="/Images"
+});
 
 app.MapControllers();
 
