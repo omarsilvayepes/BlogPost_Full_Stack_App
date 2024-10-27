@@ -14,6 +14,7 @@ export class BlogPostService {
   constructor(private hhtp:HttpClient) { }
 
   createBlogPost(data:AddBlogPost):Observable<BlogPost>{
+    console.log("date: "+data.publishedDate);
     return this.hhtp.post<BlogPost>(`${environment.apiBaseUrl}/api/blogposts`,data);
   }
 
@@ -23,6 +24,10 @@ export class BlogPostService {
 
   getBlogPostById(id:string):Observable<BlogPost>{
     return this.hhtp.get<BlogPost>(`${environment.apiBaseUrl}/api/blogposts/${id}`);
+  }
+
+  getBlogPostByUrlHandle(urlHandle:string):Observable<BlogPost>{
+    return this.hhtp.get<BlogPost>(`${environment.apiBaseUrl}/api/blogposts/${urlHandle}`);
   }
 
   updateBlogPost(id:string,data:UpdateBlogPost):Observable<BlogPost>{

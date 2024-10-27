@@ -11,10 +11,10 @@ namespace CodePulse.API.Utils
             var mapperConfig = new MapperConfiguration(config =>
             {
                 config.CreateMap<Category, CategoryDto>().ReverseMap(); //map also categoryDto --> Category
-                config.CreateMap<BlogPost, BlogPostDto>().ReverseMap();
+                config.CreateMap<BlogPost, BlogPostDto>()
+                .ForMember(dest => dest.publishedDate, opt => opt.MapFrom(src => src.PublishDate));
+                config.CreateMap<BlogPostDto, BlogPost>();
                 config.CreateMap<BlogImage, BlogImageDTO>().ReverseMap();
-                //.ForMember(dest => dest.Categories, opt => opt.MapFrom(src => src.CategoriesList));
-
             });
             return mapperConfig;
         }

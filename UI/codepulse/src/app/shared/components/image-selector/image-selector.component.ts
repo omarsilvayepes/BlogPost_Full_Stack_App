@@ -53,4 +53,9 @@ export class ImageSelectorComponent implements OnInit {
     }
   }
 
+  //Share data with  edit-blogpost component via service
+  selectedImage(image:BlogImage):void{
+    this.imageService.selectImage(image);
+  }
+
 }

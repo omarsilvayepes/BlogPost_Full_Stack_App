@@ -7,7 +7,7 @@
         public string Content { get; set; }
         public string FeaturedImageUrl { get; set; }
         public string UrlHandle { get; set; }
-        public DateTime PublishDate { get; set; }
+        public DateTime publishedDate { get; set; }
         public string Author { get; set; }
         public bool IsVisible { get; set; }
 

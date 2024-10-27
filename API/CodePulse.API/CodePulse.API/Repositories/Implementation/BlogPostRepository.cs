@@ -89,6 +89,15 @@ namespace CodePulse.API.Repositories.Implementation
             return blogPostDto;
         }
 
+        public async Task<BlogPostDto?> GetByUrlHandleAsync(string urlHandle)
+        {
+            var blogPost = await DbContext.BlogPosts.Include(c => c.Categories)//Include it is Join Functinality
+                                 .FirstOrDefaultAsync(b => b.UrlHandle == urlHandle);
+
+            var blogPostDto = Mapper.Map<BlogPostDto>(blogPost);
+            return blogPostDto;
+        }
+
         public async Task<BlogPost?> UpdateBlogPostAsync(Guid id, BlogPost blogPost)
         {
             var existingBlog = await DbContext.BlogPosts.Include(c => c.Categories)

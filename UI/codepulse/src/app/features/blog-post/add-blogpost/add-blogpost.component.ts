@@ -1,22 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AddBlogPost } from '../models/add-blog-post.model';
 import { BlogPostService } from '../services/blog-post.service';
 import { Router } from '@angular/router';
 import { CategoryService } from '../../category/services/category.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Category } from '../../category/models/category.model';
+import { ImageService } from 'src/app/shared/components/image-selector/image.service';
 
 @Component({
   selector: 'app-add-blogpost',
   templateUrl: './add-blogpost.component.html',
   styleUrls: ['./add-blogpost.component.css']
 })
-export class AddBlogpostComponent implements OnInit {
+export class AddBlogpostComponent implements OnInit,OnDestroy {
 
   model:AddBlogPost;
   categories$?:Observable<Category[]>;
+  isImageSelectorVisible:boolean=false;
+
+  imageSelectorSubscription?:Subscription;
 
   constructor(private blogPostService:BlogPostService,
+    private imageService:ImageService,
     private router:Router,
     private categoryService:CategoryService
   ){
@@ -32,8 +37,22 @@ export class AddBlogpostComponent implements OnInit {
       categories:[]
     }
   }
+
+  ngOnDestroy(): void {
+    this.imageSelectorSubscription?.unsubscribe();
+  }
+  
   ngOnInit(): void {
+    //get Categories
     this.categories$=this.categoryService.getAllCtegories();
+
+    //get images selected
+    this.imageSelectorSubscription=this.imageService.onSelectImage().subscribe({
+      next:(selectedImage)=>{
+        this.model.featuredImageUrl=selectedImage.url;
+        this.closeModalImageSelector();
+      }
+    })
   }
 
   onFormSubmit(){
@@ -45,6 +64,14 @@ export class AddBlogpostComponent implements OnInit {
       }
     })
 
+  }
+
+  openModalImageSelector():void{
+    this.isImageSelectorVisible=true;
+  }
+
+  closeModalImageSelector():void{
+    this.isImageSelectorVisible=false;
   }
 
 }

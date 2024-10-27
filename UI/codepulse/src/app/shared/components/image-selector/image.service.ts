@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { BlogImage } from '../../models/blog-image.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
@@ -8,6 +8,15 @@ import { environment } from 'src/environments/environment.development';
   providedIn: 'root'
 })
 export class ImageService {
+
+  selectedImage:BehaviorSubject<BlogImage>=new BehaviorSubject<BlogImage>({
+    id:'',
+    fileExtension:'',
+    fileName:'',
+    title:'',
+    url:''
+  });
+
 
   constructor(private http:HttpClient) { }
 
@@ -22,5 +31,17 @@ export class ImageService {
 
   getImages():Observable<BlogImage[]>{
     return this.http.get<BlogImage[]>(`${environment.apiBaseUrl}/api/images`);
+  }
+
+    //This service method it is use for shared data via service between unrelated componenst:
+    //edit-blogpost and image-selector
+  selectImage(image:BlogImage):void{
+    // emit value or publish.
+
+    this.selectedImage.next(image);
+  }
+
+  onSelectImage():Observable<BlogImage>{
+    return this.selectedImage.asObservable()
   }
 }

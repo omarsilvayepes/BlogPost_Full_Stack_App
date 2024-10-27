@@ -30,7 +30,7 @@
     
                 <div class="met-3">
                     <label for="featuredImageUrl" class="form-label">Featured Image Url 
-                        <button type="button" class="btn btn-light" (click)="openModalImageSelector()">Select Image</button>
+                        <button type="button" class="btn btn-primary" (click)="openModalImageSelector()">Select Image</button>
                     </label>
     
                     <ng-container *ngIf="model.featuredImageUrl !==''">
@@ -85,7 +85,7 @@
 </div>
 
 
-<!-- use the image-selector component inside of edit-blogpost component -->
+<!--Pop-up modal component: use the image-selector component inside of edit-blogpost component -->
  <div class="images-container-modal" [ngClass]="{'d-block':isImageSelectorVisible,'d-none':!isImageSelectorVisible}">
     <button type="button" class="btn btn-light" style="position: fixed; top: 10px; right: 10px;" (click)="closeModalImageSelector()">X</button>
     <app-image-selector></app-image-selector>

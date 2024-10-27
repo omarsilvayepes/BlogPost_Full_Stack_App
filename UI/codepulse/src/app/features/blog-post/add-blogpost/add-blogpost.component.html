@@ -27,7 +27,9 @@
             </div>
 
             <div class="met-3">
-                <label for="featuredImageUrl" class="form-label">Featured Image Url</label>
+                <label for="featuredImageUrl" class="form-label">Featured Image Url
+                    <button type="button" class="btn btn-primary" (click)="openModalImageSelector()">Select Image</button>
+                </label>
 
                 <ng-container *ngIf="model.featuredImageUrl !==''">
                     <div>
@@ -40,7 +42,9 @@
 
             <div class="met-3">
                 <label for="publishedDate" class="form-label">Publish Date</label>
-                <input type="date" id="publishedDate" name="publishedDate" class="form-control" [ngModel]="model.publishedDate | date:'yyyy-MM-dd'" value="{{model.publishedDate}}" (ngModelChange)="model.publishedDate=$event">
+                <input type="date" id="publishedDate" name="publishedDate"
+                 class="form-control" [ngModel]="model.publishedDate | date:'yyyy-MM-dd'"
+                 value="{{model.publishedDate}}" (ngModelChange)="model.publishedDate=$event">
             </div>
 
             <div class="met-3">
@@ -76,3 +80,9 @@
         </div>
     </form>
 </div>
+
+<!--Pop-up modal component: use the image-selector component inside of add-blogpost component -->
+<div class="images-container-modal" [ngClass]="{'d-block':isImageSelectorVisible,'d-none':!isImageSelectorVisible}">
+    <button type="button" class="btn btn-light" style="position: fixed; top: 10px; right: 10px;" (click)="closeModalImageSelector()">X</button>
+    <app-image-selector></app-image-selector>
+ </div>

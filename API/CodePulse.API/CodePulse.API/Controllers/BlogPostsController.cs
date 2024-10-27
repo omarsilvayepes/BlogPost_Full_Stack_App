@@ -52,7 +52,7 @@ namespace CodePulse.API.Controllers
                 Content = request.Content,
                 FeaturedImageUrl = request.FeaturedImageUrl,
                 IsVisible = request.IsVisible,
-                PublishDate = request.PublishDate,
+                PublishDate = request.publishedDate,
                 ShortDescription = request.ShortDescription,
                 Title = request.Title,
                 UrlHandle = request.UrlHandle,
@@ -80,7 +80,7 @@ namespace CodePulse.API.Controllers
                 Content = blogPost.Content,
                 FeaturedImageUrl = blogPost.FeaturedImageUrl,
                 IsVisible = blogPost.IsVisible,
-                PublishDate = blogPost.PublishDate,
+                publishedDate = blogPost.PublishDate,
                 ShortDescription = blogPost.ShortDescription,
                 Title = blogPost.Title,
                 UrlHandle = blogPost.UrlHandle,
@@ -121,6 +121,19 @@ namespace CodePulse.API.Controllers
             return Ok(blogPostDto);
         }
 
+        [HttpGet]
+        [Route("{urlHandle}")]
+        public async Task<IActionResult> GetBlogPostById([FromRoute] string urlHandle)
+        {
+            var blogPostDto = await blogPostRepository.GetByUrlHandleAsync(urlHandle);
+
+            if (blogPostDto is null)
+            {
+                return NotFound();
+            }
+            return Ok(blogPostDto);
+        }
+
         [HttpDelete]
         [Route("{id:guid}")]
         public async Task<IActionResult> DeleteBlogPostById([FromRoute] Guid id)
@@ -145,7 +158,7 @@ namespace CodePulse.API.Controllers
                 Content = request.Content,
                 FeaturedImageUrl = request.FeaturedImageUrl,
                 IsVisible = request.IsVisible,
-                PublishDate = request.PublishDate,
+                PublishDate = request.publishedDate,
                 ShortDescription = request.ShortDescription,
                 Title = request.Title,
                 UrlHandle = request.UrlHandle,
@@ -180,7 +193,7 @@ namespace CodePulse.API.Controllers
                 Content = blogPost.Content,
                 FeaturedImageUrl = blogPost.FeaturedImageUrl,
                 IsVisible = blogPost.IsVisible,
-                PublishDate = blogPost.PublishDate,
+                publishedDate = blogPost.PublishDate,
                 ShortDescription = blogPost.ShortDescription,
                 Title = blogPost.Title,
                 UrlHandle = blogPost.UrlHandle,
