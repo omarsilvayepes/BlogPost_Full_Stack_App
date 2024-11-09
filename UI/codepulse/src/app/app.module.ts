@@ -18,6 +18,7 @@ import { DeleteBlogpostComponent } from './features/blog-post/delete-blogpost/de
 import { ImageSelectorComponent } from './shared/components/image-selector/image-selector.component';
 import { HomeComponent } from './features/public/home/home.component';
 import { BlogpostDetailsComponent } from './features/public/blogpost-details/blogpost-details.component';
+import { LoginComponent } from './features/auth/login/login.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { BlogpostDetailsComponent } from './features/public/blogpost-details/blo
     DeleteBlogpostComponent,
     ImageSelectorComponent,
     HomeComponent,
-    BlogpostDetailsComponent
+    BlogpostDetailsComponent,
+    LoginComponent
     ],
   imports: [
     BrowserModule,

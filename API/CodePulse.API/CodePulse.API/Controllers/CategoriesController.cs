@@ -17,6 +17,7 @@ namespace CodePulse.API.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> CreateCategory(CreateCategoryRequestDto request)
         {
             var categoryDto=new CategoryDto { Name = request.Name ,UrlHandle=request.UrlHandle};
@@ -48,6 +49,7 @@ namespace CodePulse.API.Controllers
 
         [HttpPut]
         [Route("{id:guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> EditCategory([FromRoute] Guid id,UpdateCategoryRequesDto request)
         {
             var categoryDto = new CategoryDto { Id=id,Name = request.Name, UrlHandle = request.UrlHandle };
@@ -62,6 +64,7 @@ namespace CodePulse.API.Controllers
 
         [HttpDelete]
         [Route("{id:guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> DeleteCategory([FromRoute] Guid id)
         {
             var response = await categoryRepository.DeleteAsync(id);

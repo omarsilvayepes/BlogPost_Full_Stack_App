@@ -1,8 +1,7 @@
-﻿using Azure.Core;
-using CodePulse.API.Models.Domain;
+﻿using CodePulse.API.Models.Domain;
 using CodePulse.API.Models.DTO;
-using CodePulse.API.Repositories.Implementation;
 using CodePulse.API.Repositories.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CodePulse.API.Controllers
@@ -20,6 +19,7 @@ namespace CodePulse.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles="Writer")]
         public async Task<IActionResult> CreateBlogPost([FromBody]CreateBlogPostRequestDto request)
         {
             /*Important :sometimes Automapper can cause issues with EF Core ,i.e tracker issue or duplicated key value
@@ -136,6 +136,7 @@ namespace CodePulse.API.Controllers
 
         [HttpDelete]
         [Route("{id:guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> DeleteBlogPostById([FromRoute] Guid id)
         {
             var blogPostDto = await blogPostRepository.DeleteByIdAsync(id);
@@ -149,6 +150,7 @@ namespace CodePulse.API.Controllers
 
         [HttpPut]
         [Route("{id:guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> UpdateBlogPostById([FromRoute] Guid id,UpdateBlogPostRequestDto request)
         {
             var blogPost = new BlogPost

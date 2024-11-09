@@ -8,11 +8,18 @@ import { AddBlogpostComponent } from './features/blog-post/add-blogpost/add-blog
 import { EditBlogpostComponent } from './features/blog-post/edit-blogpost/edit-blogpost.component';
 import { HomeComponent } from './features/public/home/home.component';
 import { BlogpostDetailsComponent } from './features/public/blogpost-details/blogpost-details.component';
+import { LoginComponent } from './features/auth/login/login.component';
+
+//When a path it is access the component it is render
 
 const routes: Routes = [
   {
     path:'',
     component:HomeComponent
+  },
+  {
+    path:'login',
+    component:LoginComponent
   },
   {
     path:'blog/:url',
