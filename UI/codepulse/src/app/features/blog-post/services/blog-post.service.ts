@@ -15,7 +15,7 @@ export class BlogPostService {
 
   createBlogPost(data:AddBlogPost):Observable<BlogPost>{
     console.log("date: "+data.publishedDate);
-    return this.hhtp.post<BlogPost>(`${environment.apiBaseUrl}/api/blogposts`,data);
+    return this.hhtp.post<BlogPost>(`${environment.apiBaseUrl}/api/blogposts?addAuth=true`,data);
   }
 
   getAllBlogPosts():Observable<BlogPost[]>{
@@ -31,10 +31,10 @@ export class BlogPostService {
   }
 
   updateBlogPost(id:string,data:UpdateBlogPost):Observable<BlogPost>{
-    return this.hhtp.put<BlogPost>(`${environment.apiBaseUrl}/api/blogposts/${id}`,data);
+    return this.hhtp.put<BlogPost>(`${environment.apiBaseUrl}/api/blogposts/${id}?addAuth=true`,data);
   }
 
   deletePostById(id:string):Observable<BlogPost>{
-    return this.hhtp.delete<BlogPost>(`${environment.apiBaseUrl}/api/blogposts/${id}`);
+    return this.hhtp.delete<BlogPost>(`${environment.apiBaseUrl}/api/blogposts/${id}?addAuth=true`);
   }
 }

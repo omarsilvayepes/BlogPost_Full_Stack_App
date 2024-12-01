@@ -7,7 +7,7 @@ import { NavbarComponent } from './core/components/navbar/navbar.component';
 import { CategoryListComponent } from './features/category/category-list/category-list.component';
 import { AddCategoryComponent } from './features/category/add-category/add-category.component';
 import { FormsModule } from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { EditCategoryComponent } from './features/category/edit-category/edit-category.component';
 import { DeleteCategoryComponent } from './features/category/delete-category/delete-category.component';
 import { BlogpostListComponent } from './features/blog-post/blogpost-list/blogpost-list.component';
@@ -19,6 +19,7 @@ import { ImageSelectorComponent } from './shared/components/image-selector/image
 import { HomeComponent } from './features/public/home/home.component';
 import { BlogpostDetailsComponent } from './features/public/blogpost-details/blogpost-details.component';
 import { LoginComponent } from './features/auth/login/login.component';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,13 @@ import { LoginComponent } from './features/auth/login/login.component';
     HttpClientModule,
     MarkdownModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    {
+      provide:HTTP_INTERCEPTORS,
+      useClass:AuthInterceptor,
+      multi:true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
