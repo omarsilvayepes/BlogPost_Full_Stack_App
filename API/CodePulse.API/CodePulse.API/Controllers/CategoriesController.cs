@@ -26,10 +26,23 @@ namespace CodePulse.API.Controllers
             return Ok(categoryDto);
         }
 
+        //GET: https://localhost:7152/api/Categories?query=java&sortBy=name&sortDirection=desc
         [HttpGet]
-        public async Task<IActionResult> GetAllCategories()
+        public async Task<IActionResult> GetAllCategories(
+            [FromQuery] string? query,
+            [FromQuery] string? sortBy,
+            [FromQuery] string? sortDirection,
+            [FromQuery] int? pageNumber,
+            [FromQuery] int? pageSize
+            )
         {
-            var categoryDtos=await categoryRepository.GetAllAsync();
+            var categoryDtos=await categoryRepository.GetAllAsync(
+                query,
+                sortBy,
+                sortDirection,
+                pageNumber,
+                pageSize);
+
             return Ok(categoryDtos);
         }
 

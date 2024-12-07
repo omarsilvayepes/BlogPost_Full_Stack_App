@@ -38,8 +38,14 @@ export class CategoryListComponent implements OnInit {
 
     //Form 2 :Using Async Pipe: Suscribe and ansusbcribe obervables automatically
     this.categories$=this.categoryService.getAllCtegories();
+  }
 
+  onSearch(query:string){
+    //This filter it is posible implement only in FE. I.e client angular app using Angular material
+    this.categories$=this.categoryService.getAllCtegories(query);
+  }
 
-
+  sort(sortBy:string,sortDirection:string){
+    this.categories$=this.categoryService.getAllCtegories(undefined,sortBy,sortDirection);
   }
 }
