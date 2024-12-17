@@ -44,7 +44,7 @@ export class AddBlogpostComponent implements OnInit,OnDestroy {
   
   ngOnInit(): void {
     //get Categories
-    this.categories$=this.categoryService.getAllCtegories();
+    this.categories$=this.categoryService.getAllCategories();
 
     //get images selected
     this.imageSelectorSubscription=this.imageService.onSelectImage().subscribe({

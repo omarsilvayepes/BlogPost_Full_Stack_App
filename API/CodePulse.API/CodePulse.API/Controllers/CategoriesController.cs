@@ -87,5 +87,15 @@ namespace CodePulse.API.Controllers
             }
             return Ok(response);
         }
+
+
+        [HttpGet]
+        [Route("count")]
+        //[Authorize(Roles = "Writer")]
+        public async Task<IActionResult> GetCategoriesTotal()
+        {
+            var count = await categoryRepository.GetCount();
+            return Ok(count);
+        }
     }
 }

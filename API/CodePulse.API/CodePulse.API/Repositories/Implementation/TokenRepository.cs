@@ -34,7 +34,7 @@ namespace CodePulse.API.Repositories.Implementation
                 issuer: _configuration["Jwt:Issuer"],
                 audience: _configuration["Jwt:Audience"],
                 claims:claims,
-                expires:DateTime.Now.AddMinutes(5),
+                expires:DateTime.Now.AddMinutes(60),
                 signingCredentials:credentials
                 );
             return new JwtSecurityTokenHandler().WriteToken(token);
