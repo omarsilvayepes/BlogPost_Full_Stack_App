@@ -35,11 +35,15 @@ namespace CodePulse.API.Controllers
             var identityResult=await _userManager.CreateAsync(user,request.Password);
             if(identityResult.Succeeded)
             {
-                //Add role to user (Reader)
+                //Add role to user (Reader) by default
                 identityResult = await _userManager.AddToRoleAsync(user, "Reader");
                 if (identityResult.Succeeded)
                 {
-                    return Ok(identityResult);
+                    return Ok(new RegisterResponseDto { 
+                        IsSuccess=true,
+                        Message="User Registered Sucessfully",
+                        Result=identityResult
+                    });
                 }
                 else
                 {
@@ -86,7 +90,7 @@ namespace CodePulse.API.Controllers
                     return Ok(response);
                 }
             }
-            ModelState.AddModelError("", "Email or Password Incorrect");
+            ModelState.AddModelError("e", "Email or Password Incorrect");//Key value-pair error
             return ValidationProblem(ModelState);
         }
     }

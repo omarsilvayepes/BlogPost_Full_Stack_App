@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './core/components/navbar/navbar.component';
@@ -20,6 +19,7 @@ import { HomeComponent } from './features/public/home/home.component';
 import { BlogpostDetailsComponent } from './features/public/blogpost-details/blogpost-details.component';
 import { LoginComponent } from './features/auth/login/login.component';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+import { RegisterComponent } from './features/auth/register/register.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +36,8 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
     ImageSelectorComponent,
     HomeComponent,
     BlogpostDetailsComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
     ],
   imports: [
     BrowserModule,

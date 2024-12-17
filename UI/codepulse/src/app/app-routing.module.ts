@@ -10,6 +10,7 @@ import { HomeComponent } from './features/public/home/home.component';
 import { BlogpostDetailsComponent } from './features/public/blogpost-details/blogpost-details.component';
 import { LoginComponent } from './features/auth/login/login.component';
 import { authGuard } from './features/auth/guards/auth.guard';
+import { RegisterComponent } from './features/auth/register/register.component';
 
 //When a path it is access the component it is render
 
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path:'',
     component:HomeComponent
+  },
+  {
+    path:'register',
+    component:RegisterComponent
   },
   {
     path:'login',

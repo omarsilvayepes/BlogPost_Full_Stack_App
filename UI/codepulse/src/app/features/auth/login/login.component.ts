@@ -37,6 +37,10 @@ export class LoginComponent {
 
           //Redirect  to Home Page once Login it is success
           this.router.navigateByUrl('/');
+        },
+        error:(response)=>{
+          const firstErrorMessage = response.error.errors.e;
+          alert(firstErrorMessage);
         }
       });
     }

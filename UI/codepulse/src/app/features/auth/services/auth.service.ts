@@ -6,6 +6,8 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
 import { User } from '../models/user.model';
 import { CookieService } from 'ngx-cookie-service';
+import { RegisterRequest } from '../models/register-request.model';
+import { RegisterResponse } from '../models/register-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +21,13 @@ export class AuthService {
 
   Login(request:LoginRequest):Observable<LoginResponse>{
     return this.http.post<LoginResponse>(`${environment.apiBaseUrl}/api/Auth/login`,{
+      Email:request.email,
+      Password:request.password
+    });
+  }
+
+  Register(request:RegisterRequest):Observable<RegisterResponse>{
+    return this.http.post<RegisterResponse>(`${environment.apiBaseUrl}/api/Auth/register`,{
       Email:request.email,
       Password:request.password
     });
